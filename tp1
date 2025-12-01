@@ -1,0 +1,68 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    private boolean isMenuVisible = false;
+
+    @Override
+    public void start(Stage stage) {
+
+        BorderPane root = new BorderPane();
+        root.setStyle("-fx-background-color: #c8c8c8;");
+
+        // ---------- MENU (HIDDEN BY DEFAULT) ----------
+        VBox menu = new VBox(10);
+        menu.setPadding(new Insets(15));
+        menu.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        menu.setPrefWidth(150);
+
+        menu.getChildren().addAll(
+                new Label("تسجيل خروج"),
+                new Label("اضافة أداة"),
+                new Label("اعارة أداة"),
+                new Label("حذف أداة"),
+                new Label("بحث")
+        );
+
+        menu.setVisible(false);   // ← hidden at start
+        menu.setManaged(false);   // ← layout ignores it
+
+        // ---------- BUTTON TO SHOW / HIDE MENU ----------
+        Button menuButton = new Button("☰ القائمة");
+        menuButton.setStyle("-fx-font-size: 20px;");
+
+        menuButton.setOnAction(e -> {
+            isMenuVisible = !isMenuVisible;
+
+            menu.setVisible(isMenuVisible);
+            menu.setManaged(isMenuVisible);
+        });
+
+        // ---------- TOP BAR ----------
+        VBox topBox = new VBox(menuButton);
+        topBox.setAlignment(Pos.CENTER_LEFT);
+        topBox.setPadding(new Insets(10));
+        root.setTop(topBox);
+
+        // ---------- ADD MENU TO LEFT BUT KEEP HIDDEN ----------
+        root.setLeft(menu);
+
+        // ---------- SCENE ----------
+        Scene scene = new Scene(root, 1000, 600);
+        stage.setScene(scene);
+        stage.setTitle("Sidebar Toggle Example");
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}
