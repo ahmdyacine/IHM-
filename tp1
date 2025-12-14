@@ -18,7 +18,7 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #c8c8c8;");
 
-        // ---------- MENU (HIDDEN BY DEFAULT) ----------
+        
         VBox menu = new VBox(10);
         menu.setPadding(new Insets(15));
         menu.setStyle("-fx-background-color: white; -fx-border-color: black;");
@@ -35,7 +35,7 @@ public class Main extends Application {
         menu.setVisible(false);   // ← hidden at start
         menu.setManaged(false);   // ← layout ignores it
 
-        // ---------- BUTTON TO SHOW / HIDE MENU ----------
+        
         Button menuButton = new Button("☰ القائمة");
         menuButton.setStyle("-fx-font-size: 20px;");
 
@@ -46,16 +46,15 @@ public class Main extends Application {
             menu.setManaged(isMenuVisible);
         });
 
-        // ---------- TOP BAR ----------
+       
         VBox topBox = new VBox(menuButton);
         topBox.setAlignment(Pos.CENTER_LEFT);
         topBox.setPadding(new Insets(10));
         root.setTop(topBox);
 
-        // ---------- ADD MENU TO LEFT BUT KEEP HIDDEN ----------
+        
         root.setLeft(menu);
 
-        // ---------- SCENE ----------
         Scene scene = new Scene(root, 1000, 600);
         stage.setScene(scene);
         stage.setTitle("Sidebar Toggle Example");
