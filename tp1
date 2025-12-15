@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private boolean isMenuVisible = false;
+    // Menu starts visible
+    private boolean isMenuVisible = true;
 
     @Override
     public void start(Stage stage) {
@@ -18,11 +19,11 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #c8c8c8;");
 
-        
+        // ---------- LEFT MENU ----------
         VBox menu = new VBox(10);
         menu.setPadding(new Insets(15));
-        menu.setStyle("-fx-background-color: white; -fx-border-color: black;");
         menu.setPrefWidth(150);
+        menu.setStyle("-fx-background-color: white; -fx-border-color: black;");
 
         menu.getChildren().addAll(
                 new Label("تسجيل خروج"),
@@ -32,29 +33,29 @@ public class Main extends Application {
                 new Label("بحث")
         );
 
-        menu.setVisible(false);   // ← hidden at start
-        menu.setManaged(false);   // ← layout ignores it
+        // Menu is visible at start
+        menu.setVisible(true);
+        menu.setManaged(true);
 
-        
+        // ---------- TOGGLE BUTTON ----------
         Button menuButton = new Button("☰ القائمة");
         menuButton.setStyle("-fx-font-size: 20px;");
 
         menuButton.setOnAction(e -> {
             isMenuVisible = !isMenuVisible;
-
             menu.setVisible(isMenuVisible);
             menu.setManaged(isMenuVisible);
         });
 
-       
+        // ---------- TOP BAR ----------
         VBox topBox = new VBox(menuButton);
         topBox.setAlignment(Pos.CENTER_LEFT);
         topBox.setPadding(new Insets(10));
-        root.setTop(topBox);
 
-        
+        root.setTop(topBox);
         root.setLeft(menu);
 
+        // ---------- SCENE ----------
         Scene scene = new Scene(root, 1000, 600);
         stage.setScene(scene);
         stage.setTitle("Sidebar Toggle Example");
